@@ -22,12 +22,23 @@
          <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
          <script src="//d3js.org/topojson.v2.min.js"></script>
          <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+        <!-- Plotly-->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
  
     </head>
 
     <body>
         <h1>Analysis</h1>
-        <svg id="map" width="800" height="650"></svg>
-        <script src='static/js/map.js'></script>
+        <div>
+            <svg id="map" width="800" height="650"></svg>
+            <script src='static/js/map.js'></script>
+        </div>
+
+        <div>
+            <h1>GDP Analysis</h1>
+            <svg id="line" width="1000" height="650"></svg>
+            <script src='static/js/app.js'></script>
+        </div>
     </body>
 </html>
