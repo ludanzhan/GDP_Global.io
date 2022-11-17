@@ -1,13 +1,13 @@
 
 
 // set the dimensions and margins of the graph
-const margin = {top: 10, right: 50, bottom: 30, left: 80};
-const   x_width = 660 - margin.left - margin.right ;
-const   y_height = 400 - margin.top - margin.bottom ;
+const margin = {top: 50, right: 50, left: 80, bottom:20};
+const   x_width = 600 - margin.left - margin.right ;
+const   y_height = 400 - margin.top ;
 
 
 // append the svg object to the body of the page
-const Linesvg = d3.select("#line")
+const Linesvg = d3.select("#GDP_line")
   .append("svg")
     .attr("width", x_width + margin.left + margin.right)
     .attr("height", y_height + margin.top + margin.bottom)
@@ -30,16 +30,12 @@ d3.csv("Data/GDP_Continent.csv").then(
       };
     });
 
-    let id = 0
-    const ids = function () {
-    return "line-"+id++
-    };
-
-  //console.log("year",data.year)
+ /* //console.log("year",data.year)
    console.log("Column headers without date", data.columns.slice(1));
 // returns the sliced dataset
    console.log("Slices",slices);
     // Add X axis --> it is a date format
+   console.log("Slices",slices[0].id);*/
 
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.year; }))
@@ -72,56 +68,69 @@ d3.csv("Data/GDP_Continent.csv").then(
     .x(function(d) { return xScale(d.date); })
     .y(function(d) { return yScale(d.measurement);}); 
 
-    //----------------------------LINES-----------------------------//
-    const color = d3.scaleOrdinal()
-    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628'])
 
+    let id = 0;
+    const ids = function () {
+        return "line-"+id++
+    }
+
+    //----------------------------LINES-----------------------------//
+  
+    
     const lines = Linesvg.selectAll("lines")
     .data(slices)
     .enter()
     .append("g");
 
-    lines.append("text")
-    .attr("class","serie_label")
+
+
+    var legend_keys = 
+    ['East Asia & Pacific', 'Europe & Central Asia', 
+    'Latin America & Caribbean', 'Middle East & North Africa', 
+    'North America', 'South Asia', 'Sub-Saharan Africa']
+
+    
+    var lineLegend = Linesvg.selectAll(".lineLegend").data(legend_keys)
+    .enter().append("g")
+    .attr("class","lineLegend")
+    .attr("transform", function (d,i) {
+            return "translate(" + 5 + "," + (i*20)+")";
+        });
+
+    lineLegend.append("text")
+      .text(function (d) {return d;})
+      .attr("transform", "translate(15, 6)");
+
+    const color = ["#ed3700",'#2b2929','#9c9c9c','#4daf4a','#984ea3','#ff7f00','#067eee']
+
+    lineLegend.append("rect")
+      .attr("fill", function (d,i){
+        return color[i]
+      })
+      .attr("width", 12).attr('height', 5);
+
+    /*lines.append("text")
+    .attr("class","label")
     .datum(function(d) {
         return {
             id: d.id,
             value: d.values[d.values.length - 1]}; })
     .attr("transform", function(d) {
-            return "translate(" + (xScale(d.value.date) + 10)  
-            + "," + (yScale(d.value.measurement) + 5 ) + ")";})
-    .attr("x", 5)
-    .text(function(d) { return  + d.id; });
+            return "translate(" + (xScale(d.value.date))  
+            + "," + (yScale(d.value.measurement) ) + ")";})
+    .attr("x",-20)
+    .attr('text-anchor', 'middle')
+    .text(function(d) {return ("")+d.id; });*/
 
+    console.log(slices)
     lines.append("path")
-    .attr("class", ids)
-    .attr("fill", "none")
-    .attr("stroke",function(d){ return color(d[0]) })
-    .attr("d", function(d) { return line(d.values); });
-
-   /* const x = d3.scaleLinear()
-      .domain(d3.extent(data, function(d) { return d.year; }))
-      .range([ 0, x_width ]);
-      Linesvg.append("g")
-      .attr("transform", `translate(0, ${y_height})`)
-      .call(d3.axisBottom(x).ticks(5));
-
-    
-    // Add Y axis
-    const y = d3.scaleLinear()
-      .domain([0, d3.max(data, function(d){ return d.EastAsia}
-      )])
-      .range([ y_height, 0 ]);
-      Linesvg.append("g")
-      .call(d3.axisLeft(y));
-
-      Linesvg.append("path")
-      .datum(data)
+      .attr("class", ids)
       .attr("fill", "none")
-      .attr("stroke", "steelblue")
+      .attr("stroke","blue")
       .attr("stroke-width", 1.5)
-      .attr("d", d3.line()
-        .x(function(d) { return x(((d.year))) })
-        .y(function(d) { return y(d.EastAsia) })
-        )*/
+      .attr("d", function(d) { return line(d.values); });
 })
+
+
+
+
