@@ -1,7 +1,7 @@
 
 
 // set the dimensions and margins of the graph
-const margin = {top: 50, right: 50, left: 80, bottom:20};
+const margin = {top: 50, right: 10, left: 80, bottom:20};
 const   x_width = 600 - margin.left - margin.right ;
 const   y_height = 400 - margin.top ;
 
@@ -82,15 +82,13 @@ d3.csv("Data/GDP_Continent.csv").then(
     .enter()
     .append("g");
 
-
-
-    var legend_keys = 
+    let legend_keys = 
     ['East Asia & Pacific', 'Europe & Central Asia', 
     'Latin America & Caribbean', 'Middle East & North Africa', 
     'North America', 'South Asia', 'Sub-Saharan Africa']
 
     
-    var lineLegend = Linesvg.selectAll(".lineLegend").data(legend_keys)
+    let lineLegend = Linesvg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
     .attr("transform", function (d,i) {
@@ -108,6 +106,15 @@ d3.csv("Data/GDP_Continent.csv").then(
         return color[i]
       })
       .attr("width", 12).attr('height', 5);
+
+      Linesvg.append("text")
+        .attr("x", (x_width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style('font-family', 'Georgia') 
+        .style("font-weight",'bold') 
+        .text("GDP Grwoth by Continent");
 
     /*lines.append("text")
     .attr("class","label")

@@ -34,31 +34,62 @@
  
     </head>
 
-    <body>
-        <h1>Analysis</h1>
-        <div>
-            <svg id="map" width="800" height="650"></svg>
-            <script src='static/js/map.js'></script>
-        </div>
-
-   
+    <body>   
         <div class="container">
             <div class="row justify-content-start"> 
                 <div class="col-md-12 jumbotron text-center" style="background-color:white">
-                    <h1 style="font-size: 50px;">GDP Analysis By Continent</h1>
+                    <h1 style="font-size: 50px;">GDP Worldwide</h1>
                 </div>
-                <div class ="col-md-6 col-sm-6">
-                    <svg id="GDP_line" width="1000" height="650"></svg>
-                    <script src='static/js/gdp_continent.js'></script>
+
+                <div class="col-md-12">
+                    <svg id="map" width="900" height="650"></svg>
+                    <script src='static/js/map.js'></script>
+                    <p> The choropleth map above displays the total GDP for each country around the world in the year 2021 where the gradient of the color indicates the difference in total GDP. 
+                        The darker the color is, the higher the GDP is. When thinking about the total GDP, 
+                        it is instinctive to think that country with a larger population will have a higher
+                    total GDP. However, in the real situation, the relationship between population growth and 
+                    GDP growth is controversial.  </p>
                 </div>
-                <div class ="col-md-6 col-sm-6">
-                    <svg id="POP_line" width="1000" height="650"></svg>
-                    <script src='static/js/pop_continent.js'></script>
+            
+                <div class ="row justify-content-start">
+        
+                    <div class ="col-md-6 col-sm-6" style="margin-top: 2cm;">
+                        <svg id="GDP_line" width="500" height="500"></svg>
+                        <script src='static/js/gdp_continent.js'></script>
+                        <p>The chart above shows the total GDP by continent since 1960, we can see from the graph that
+                            the total GDP for each continent displays an increasing trend. Among all continents, North America
+                            shows the fastest growing rate.
+                           </p>
+                    </div>
+                    <div class ="col-md-6 col-sm-6" style="margin-top:2cm;">
+                        <svg id="POP_line" width="500" height="500"></svg>
+                        <script src='static/js/pop_continent.js'></script>
+                        <p>The chart above shows the total Population growth since 1960, we can see from the graph that
+                            the total population from the past 60 years for each continent is steadily increasing. Among all continents, East Asia shows
+                            the most population. 
+                           </p>
+                    </div>
+                    <div class ="col-md-12" style="font-weight: bold;">
+                        <p>From both graphs, we can see that although East Asia has the most population, its total GDP
+                            doesn't appear to be the highest. Vice versa, North America has a relatively small population but has the highest total GDP. 
+                            Therefore, when using GDP as an index of ecnomic growth, it's worth mentioning the GDP per Capita.
+                        </p>
+                        
+                    </div>
                 </div>
 
                 <div class="col-md-12">
                     <svg id="GrowthRate" width="1000" height="650"></svg>
                     <script src='static/js/gdp_continent_rate.js'></script>
+                </div>
+
+                <div class="col-md-12">
+                    <svg id="Top10_pop" width="1000" height="500"></svg>
+                    <script src="static/js/Top10_pop.js"></script>
+                </div>
+
+                <div class="col-md-12">
+                    <div id ='myDiv'> </div>
                 </div>
             </div>
 

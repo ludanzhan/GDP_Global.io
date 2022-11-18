@@ -91,8 +91,19 @@
         stroke: #067eee;
     }
     
-    .serie_label {
+    .lineLegend {
       fill: #2b2929;
       font-family: Georgia;
       font-size: 80%;
+    }
+
+    .legend {
+        fill: #2b2929;
+        font-family: Georgia;
+        font-size: 80%;
+      }
+
+    p{
+        font-family: Georgia;
+        text-align: justify;
     }

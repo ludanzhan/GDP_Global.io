@@ -1,4 +1,6 @@
 // append the svg object to the body of the page
+
+
 const Popsvg = d3.select("#POP_line")
   .append("svg")
     .attr("width", x_width + margin.left + margin.right)
@@ -68,6 +70,15 @@ d3.csv("Data/Pop_Continent.csv").then(
     .data(pop)
     .enter()
     .append("g");
+
+    Popsvg.append("text")
+    .attr("x", (x_width / 2))             
+    .attr("y", 0 - (margin.top / 2))
+    .attr("text-anchor", "middle")  
+    .style("font-size", "16px") 
+    .style('font-family', 'Georgia') 
+    .style("font-weight",'bold') 
+    .text("Population Grwoth by Continent");
 
     /*lines.append("text")
     .attr("class","label")
