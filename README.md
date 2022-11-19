@@ -9,6 +9,10 @@ This project is to provide data visualization to discuss the relationship betwee
 - **JavaScript**: Mainly used for frontend design
 - **Boostrap**: External styling sheet
 - **D3**: Data Visulization Tools
+- **Python**: For data preparation and data cleaning including:
+  - Calculate GDP per Capita for each country
+  - Group by data by Continent and calculate GDP per Capita
+  - Calculate GDP percent change each year for each country
 
 ## Visualization Charts and Reasoning
 - **Bar Chart**: A bar chart or bar graph is a chart or graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent. In this case, I choose bar charts to display the number difference between each country's Total GDP, GDP per Capita, and Population. 
