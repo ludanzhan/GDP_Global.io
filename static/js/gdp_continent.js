@@ -1,11 +1,3 @@
-
-
-// set the dimensions and margins of the graph
-const margin = {top: 50, right: 10, left: 80, bottom:20};
-const   x_width = 600 - margin.left - margin.right ;
-const   y_height = 400 - margin.top ;
-
-
 // append the svg object to the body of the page
 const Linesvg = d3.select("#GDP_line")
   .append("svg")
@@ -29,13 +21,6 @@ d3.csv("Data/GDP_Continent.csv").then(
           })
       };
     });
-
- /* //console.log("year",data.year)
-   console.log("Column headers without date", data.columns.slice(1));
-// returns the sliced dataset
-   console.log("Slices",slices);
-    // Add X axis --> it is a date format
-   console.log("Slices",slices[0].id);*/
 
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.year; }))
@@ -115,19 +100,6 @@ d3.csv("Data/GDP_Continent.csv").then(
         .style('font-family', 'Georgia') 
         .style("font-weight",'bold') 
         .text("GDP Grwoth by Continent");
-
-    /*lines.append("text")
-    .attr("class","label")
-    .datum(function(d) {
-        return {
-            id: d.id,
-            value: d.values[d.values.length - 1]}; })
-    .attr("transform", function(d) {
-            return "translate(" + (xScale(d.value.date))  
-            + "," + (yScale(d.value.measurement) ) + ")";})
-    .attr("x",-20)
-    .attr('text-anchor', 'middle')
-    .text(function(d) {return ("")+d.id; });*/
 
     console.log(slices)
     lines.append("path")

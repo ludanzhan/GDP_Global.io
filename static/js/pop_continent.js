@@ -1,6 +1,4 @@
 // append the svg object to the body of the page
-
-
 const Popsvg = d3.select("#POP_line")
   .append("svg")
     .attr("width", x_width + margin.left + margin.right)
@@ -79,19 +77,6 @@ d3.csv("Data/Pop_Continent.csv").then(
     .style('font-family', 'Georgia') 
     .style("font-weight",'bold') 
     .text("Population Grwoth by Continent");
-
-    /*lines.append("text")
-    .attr("class","label")
-    .datum(function(d) {
-        return {
-            id: d.id,
-            value: d.values[d.values.length - 1]}; })
-    .attr("transform", function(d) {
-            return "translate(" + (xScale(d.value.date))  
-            + "," + (yScale(d.value.measurement) +5) + ")";})
-    .attr("x",-20)
-    .attr('text-anchor', 'middle')
-    .text(function(d) {return ("")+d.id; })*/
 
     var legend_keys = 
     ['East Asia & Pacific', 'Europe & Central Asia', 

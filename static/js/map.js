@@ -1,5 +1,5 @@
-var Mapmargin = {top: 30, right: 10, bottom: 40, left: 70},
-    width = 1000 - Mapmargin.left - Mapmargin.right,
+var Mapmargin = {top: 30, right: 60, bottom: 40, left: 50},
+    width = 1200 - Mapmargin.left - Mapmargin.right,
     height = 600 - Mapmargin.top - Mapmargin.bottom;
 const svg = d3.select("#map")
 .append("svg")
@@ -41,7 +41,7 @@ const Tooltip = d3.select("#map")
 Promise.all([
 d3.json("Data/world.geojson"),
 d3.csv("Data/GDP.csv", function(d) {
-    data.set(d.Code, +d['2020'])
+    data.set(d['Country Code'], +d['2020'])
 })]).then(function(loadData){
     let topo = loadData[0]
     let gdp = loadData[1]
@@ -75,14 +75,14 @@ d3.csv("Data/GDP.csv", function(d) {
   }
 
   //----------------------------Add Legend--------------------//
-  let legend_x = width - 170
+  let legend_x = width - 130
   let legend_y = height - 500
 
   svg.append("g")
     .attr("class", "legend")
     .attr("transform", "translate(" + legend_x + "," + legend_y+")");
 
-  let labels = ["< 50 M", "50 M - 100 M", "100 M - 500 M","500 M - 1000 M","1000 M - 5000 M","5000 M - 10000 M","10000 M - 50000 M","500000M-1000000M",">1000000M"]
+  let labels = ["< 50 M", "50  - 100 M", "100  - 500 M","5000 - 1000 M","1000 - 5000 M","5000 - 10000 M","10000 - 50000 M","500000 - 1000000M",">1000000M"]
   let legend = d3.legendColor()
     .labels(labels)
     .scale(colorScale)

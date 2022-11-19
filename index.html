@@ -37,12 +37,14 @@
     <body>   
         <div class="container">
             <div class="row justify-content-start"> 
-                <div class="col-md-12 jumbotron text-center" style="background-color:white">
-                    <h1 style="font-size: 50px;">GDP Worldwide</h1>
+                <div class="col-md-12 jumbotron text-center" style="background-color:white; margin-bottom: 2cm; font-family: Georgia, 'Times New Roman', Times, serif;font-weight: bold;">
+                    <h1 style="font-size: 40px; font-weight: bold;">Analysis of relationship between GDP and Population</h1>
+                    <br>
+                    <p style="font-weight: 500;text-align: justify;"> The official definition of GDP is: "Gross domestic product (GDP) is a monetary measure of the market value of all the final goods and services produced and sold (not resold) in a specific time period by countries".
+                        We often see GDP serve as an important indicator of a country's economic growth. However, the relationship between total GDP and Population could be controversial, it also leads to another question of whether Total GDP or GDP per Capita is a better indicator of a country's economic development. </p>
                 </div>
-
                 <div class="col-md-12">
-                    <svg id="map" width="900" height="650"></svg>
+                    <svg id="map" width="1200" height="650"></svg>
                     <script src='static/js/map.js'></script>
                     <p> The choropleth map above displays the total GDP for each country around the world in the year 2021 where the gradient of the color indicates the difference in total GDP. 
                         The darker the color is, the higher the GDP is. When thinking about the total GDP, 
@@ -50,47 +52,76 @@
                     total GDP. However, in the real situation, the relationship between population growth and 
                     GDP growth is controversial.  </p>
                 </div>
-            
-                <div class ="row justify-content-start">
-        
-                    <div class ="col-md-6 col-sm-6" style="margin-top: 2cm;">
-                        <svg id="GDP_line" width="500" height="500"></svg>
+                <div class ="row justify-content-start" style="margin-top: 2cm;">
+                    <div class ="col-md-4 col-sm-4" >
+                        <svg id="Top10_pop" width="450" height="550"></svg>
+                        <script src='static/js/Top10_pop.js'></script>
+                    </div>
+
+                    <div class ="col-md-4 col-sm-4" >
+                        <svg id="Top10_GDP_per_Capita" width="450" height="550"></svg>
+                        <script src='static/js/Top10_GDP_per_Capita.js'></script>
+                    </div>
+                    <div class ="col-md-4 col-sm-4" >
+                        <svg id="Top10_GDP" width="450" height="550"></svg>
+                        <script src='static/js/Top10_GDP.js'></script>
+                    </div>
+
+                    <div class ="col-md-12">
+                        <p > The three graphs above show the top 10 countries ranked by: Population, GDP per Capita, and Total GDP. 
+                            From the graphs, we can see that the total GDP and Population do not have a direct relationship which 
+                            means a country with a large population doesn't imply a high total GDP. i.e, the United States has the highest
+                            total GDP but doesn't have the largest population.
+                        </p>
+
+                        <p > The three graphs above show the top 10 countries ranked by: Population, GDP per Capita, and Total GDP. 
+                            From the graphs, we can see that the total GDP and Population do not have a direct relationship which 
+                            means a country with a large population doesn't imply a high total GDP. i.e, the United States has the highest
+                            total GDP but doesn't have the largest population.
+                        </p>
+                    </div>
+                </div>
+                
+                </div>
+                <div class ="row justify-content-start"style="margin-top: 2cm;">
+                    <div class ="col-md-6 col-sm-6" >
+                        <svg id="GDP_line" width="600" height="500"></svg>
                         <script src='static/js/gdp_continent.js'></script>
-                        <p>The chart above shows the total GDP by continent since 1960, we can see from the graph that
-                            the total GDP for each continent displays an increasing trend. Among all continents, North America
-                            shows the fastest growing rate.
-                           </p>
                     </div>
-                    <div class ="col-md-6 col-sm-6" style="margin-top:2cm;">
-                        <svg id="POP_line" width="500" height="500"></svg>
+    
+                
+                    <div class ="col-md-6 col-sm-6" >
+                        <svg id="POP_line" width="600" height="500"></svg>
                         <script src='static/js/pop_continent.js'></script>
-                        <p>The chart above shows the total Population growth since 1960, we can see from the graph that
+                        </div>
+            
+                    <div class ="col-md-12">
+                        <p>The chart on the left shows the total GDP by continent since 1960, we can see from the graph that
+                            the total GDP for each continent displays an increasing trend. Among all continents, North America
+                            shows the fastest growing rate. The chart on the right shows the total Population growth since 1960, we can see from the graph that
                             the total population from the past 60 years for each continent is steadily increasing. Among all continents, East Asia shows
-                            the most population. 
-                           </p>
-                    </div>
-                    <div class ="col-md-12" style="font-weight: bold;">
-                        <p>From both graphs, we can see that although East Asia has the most population, its total GDP
+                            the most population. </p>
+                        <p style="font-weight:bold;">From both graphs, we can see that although East Asia has the most population, its total GDP
                             doesn't appear to be the highest. Vice versa, North America has a relatively small population but has the highest total GDP. 
                             Therefore, when using GDP as an index of ecnomic growth, it's worth mentioning the GDP per Capita.
                         </p>
                         
                     </div>
-                </div>
-
-                <div class="col-md-12">
-                    <svg id="GrowthRate" width="1000" height="650"></svg>
+                <div class="col-md-12" style="margin-top: 2cm;">
+                    <svg id="GrowthRate" width="1400" height="650"></svg>
                     <script src='static/js/gdp_continent_rate.js'></script>
+                    <script src='static/js/world.js'></script>
+
+                    <p style="text-align: center;font-style: italic;">The overall GDP growth rate by continent generally follows the World GDP growth trend
+                    </p>
                 </div>
 
-                <div class="col-md-12">
-                    <svg id="Top10_pop" width="1000" height="500"></svg>
-                    <script src="static/js/Top10_pop.js"></script>
+                <div class="col-md-12" >
+                    <p style="font-weight: bold;"> In conclusion, when using GDP as a analysis indicator, it is worth to consider all three factors: Total GDP ,GDP per Capita, and Population.
+                        Since there isn't any direct relationship in between those three factors.
+                    </p>
                 </div>
 
-                <div class="col-md-12">
-                    <div id ='myDiv'> </div>
-                </div>
             </div>
 
         </div>

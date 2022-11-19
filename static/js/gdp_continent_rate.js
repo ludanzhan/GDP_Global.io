@@ -126,4 +126,13 @@ d3.csv("Data/continent_Pct_change.csv").then(
       .attr("stroke","blue")
       .attr("stroke-width", 2)
       .attr("d", function(d) { return line(d.values); });
+
+      Ratesvg.append("text")
+      .attr("x", (Chartwidth / 2))             
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "middle")  
+      .style("font-size", "16px") 
+      .style('font-family', 'Georgia') 
+      .style("font-weight",'bold') 
+      .text("World GDP Growth Rate vs. Continent GDP Growth Rate");
 })
