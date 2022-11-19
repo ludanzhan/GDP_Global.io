@@ -8,7 +8,7 @@ const Linesvg = d3.select("#GDP_line")
 
 //Read the data
 d3.csv("Data/GDP_Continent.csv").then(
-  // Now I can use this dataset:
+  //extract data
   function(data) {
     const slices = data.columns.slice(1).map(function(id) {
       return {
@@ -21,22 +21,11 @@ d3.csv("Data/GDP_Continent.csv").then(
           })
       };
     });
-
+//-------------------set up x axis-----------------------------------
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.year; }))
       .range([ 0, x_width ]);
-
-
-    const yScale = d3.scaleLinear()
-      .range([y_height, 0])
-      .domain([(0), d3.max(slices, function(c) {
-        return d3.max(c.values, function(d) {
-            return d.measurement ; });
-            })
-        ]);
-
     
-    const yaxis = d3.axisLeft(yScale); 
     const xaxis = d3.axisBottom(xScale);
 
     Linesvg.append("g")
@@ -44,6 +33,15 @@ d3.csv("Data/GDP_Continent.csv").then(
     .attr("transform", "translate(0," + y_height + ")")
     .call(xaxis.ticks(5));
 
+//-------------------set up y axis-----------------------------------
+    const yScale = d3.scaleLinear()
+      .range([y_height, 0])
+      .domain([(0), d3.max(slices, function(c) {
+        return d3.max(c.values, function(d) {
+            return d.measurement ; });
+            })
+        ]);
+    const yaxis = d3.axisLeft(yScale); 
     Linesvg.append("g")
     .attr("class", "axis")
     .call(yaxis);
@@ -53,26 +51,22 @@ d3.csv("Data/GDP_Continent.csv").then(
     .x(function(d) { return xScale(d.date); })
     .y(function(d) { return yScale(d.measurement);}); 
 
-
     let id = 0;
     const ids = function () {
         return "line-"+id++
     }
 
-    //----------------------------LINES-----------------------------//
-  
-    
     const lines = Linesvg.selectAll("lines")
     .data(slices)
     .enter()
     .append("g");
 
+  //----------------------------LINES-----------------------------//
     let legend_keys = 
     ['East Asia & Pacific', 'Europe & Central Asia', 
     'Latin America & Caribbean', 'Middle East & North Africa', 
     'North America', 'South Asia', 'Sub-Saharan Africa']
 
-    
     let lineLegend = Linesvg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
@@ -91,23 +85,23 @@ d3.csv("Data/GDP_Continent.csv").then(
         return color[i]
       })
       .attr("width", 12).attr('height', 5);
-
-      Linesvg.append("text")
-        .attr("x", (x_width / 2))             
-        .attr("y", 0 - (margin.top / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-        .style('font-family', 'Georgia') 
-        .style("font-weight",'bold') 
-        .text("GDP Grwoth by Continent");
-
-    console.log(slices)
+  
     lines.append("path")
       .attr("class", ids)
       .attr("fill", "none")
       .attr("stroke","blue")
       .attr("stroke-width", 1.5)
       .attr("d", function(d) { return line(d.values); });
+
+        //----------------------------Title of graph-----------------------------//
+    Linesvg.append("text")
+      .attr("x", (x_width / 2))             
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "middle")  
+      .style("font-size", "16px") 
+      .style('font-family', 'Georgia') 
+      .style("font-weight",'bold') 
+      .text("GDP Grwoth by Continent");
 })
 
 

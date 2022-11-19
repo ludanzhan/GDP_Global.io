@@ -1,6 +1,9 @@
-var Mapmargin = {top: 30, right: 60, bottom: 40, left: 50},
+// set up dimension for the map
+let Mapmargin = {top: 30, right: 60, bottom: 40, left: 50},
     width = 1200 - Mapmargin.left - Mapmargin.right,
     height = 600 - Mapmargin.top - Mapmargin.bottom;
+
+// append the object 
 const svg = d3.select("#map")
 .append("svg")
 .attr("width", width + Mapmargin.left + Mapmargin.right)
@@ -90,8 +93,6 @@ d3.csv("Data/GDP.csv", function(d) {
   svg.select(".legend")
     .call(legend);
 
-   //----------------------------Add Slider--------------------//
-
   // //----------------------------/Draw the map------------------//
   svg.append("g")
     .selectAll("path")
@@ -113,7 +114,4 @@ d3.csv("Data/GDP.csv", function(d) {
       .on("mouseover", mouseOver)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseLeave )
-
-      
-  
 })

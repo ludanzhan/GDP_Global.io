@@ -8,7 +8,7 @@ const Popsvg = d3.select("#POP_line")
 
 //Read the data
 d3.csv("Data/Pop_Continent.csv").then(
-  // Now I can use this dataset:
+  // extract wanted data
   function(data) {
     const pop = data.columns.slice(1).map(function(id) {
       return {
@@ -22,22 +22,11 @@ d3.csv("Data/Pop_Continent.csv").then(
       };
     });
 
-
+  //------------------- set up x axis ----------------------------------------//
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.year; }))
       .range([ 0, x_width ]);
 
-
-    const yScale = d3.scaleLinear()
-      .range([y_height, 0])
-      .domain([(0), d3.max(pop, function(c) {
-        return d3.max(c.values, function(d) {
-            return d.measurement ; });
-            })
-        ]);
-
-    
-    const yaxis = d3.axisLeft(yScale); 
     const xaxis = d3.axisBottom(xScale);
 
     Popsvg.append("g")
@@ -45,30 +34,37 @@ d3.csv("Data/Pop_Continent.csv").then(
     .attr("transform", "translate(0," + y_height + ")")
     .call(xaxis.ticks(5));
 
+  //------------------- set up y axis --------------------------------
+    const yScale = d3.scaleLinear()
+      .range([y_height, 0])
+      .domain([(0), d3.max(pop, function(c) {
+        return d3.max(c.values, function(d) {
+            return d.measurement ; });
+            })
+        ]);
+    
+    const yaxis = d3.axisLeft(yScale); 
+
     Popsvg.append("g")
     .attr("class", "axis")
     .call(yaxis);
-
-
 
     //----------------------------LINES-----------------------------//
     const line = d3.line()
     .x(function(d) { return xScale(d.date); })
     .y(function(d) { return yScale(d.measurement);}); 
 
-
     let id = 0;
     const ids = function () {
         return "line-"+id++
     }
-
     //----------------------------LINES-----------------------------//
   
     const lines = Popsvg.selectAll("lines")
     .data(pop)
     .enter()
     .append("g");
-
+//------------------- graph title --------------------------------------- // 
     Popsvg.append("text")
     .attr("x", (x_width / 2))             
     .attr("y", 0 - (margin.top / 2))
@@ -77,14 +73,16 @@ d3.csv("Data/Pop_Continent.csv").then(
     .style('font-family', 'Georgia') 
     .style("font-weight",'bold') 
     .text("Population Grwoth by Continent");
+  
+    //------------------- legend--------------------------------------- // 
 
-    var legend_keys = 
+  let legend_keys = 
     ['East Asia & Pacific', 'Europe & Central Asia', 
     'Latin America & Caribbean', 'Middle East & North Africa', 
     'North America', 'South Asia', 'Sub-Saharan Africa']
 
     
-    var lineLegend = Popsvg.selectAll(".lineLegend").data(legend_keys)
+  let lineLegend = Popsvg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
     .attr("transform", function (d,i) {

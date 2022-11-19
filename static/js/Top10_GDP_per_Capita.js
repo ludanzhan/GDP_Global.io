@@ -43,7 +43,7 @@ d3.csv("Data/GDP_per_Capita.csv").then( function(data) {
     .attr("height", y.bandwidth())
     .attr("fill", "#5384b7")
 
-
+// title 
     TopGDPsvg.append("text")
     .attr("x", (x_width / 2))             
     .attr("y", 0 - (margin.top / 2))

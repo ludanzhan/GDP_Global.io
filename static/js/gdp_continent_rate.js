@@ -1,8 +1,8 @@
-// append the svg object to the body of the page
 // set the dimensions and margins of the graph
 const   Chartwidth = 1200 - margin.left - margin.right ;
 const   Chartheight = 500 - margin.top ;
 
+// append the svg object to the body of the page
 const Ratesvg = d3.select("#GrowthRate")
   .append("svg")
     .attr("width", Chartwidth + margin.left + margin.right)
@@ -12,7 +12,7 @@ const Ratesvg = d3.select("#GrowthRate")
 
 //Read the data
 d3.csv("Data/continent_Pct_change.csv").then(
-  // Now I can use this dataset:
+  // use the dataset and extract wanted data
   function(data) {
     const rate = data.columns.slice(1).map(function(id) {
       return {
@@ -33,22 +33,10 @@ d3.csv("Data/continent_Pct_change.csv").then(
        // Add X axis --> it is a date format
       console.log("Rate",rate[0].id);
 
-
+    // set up the x axis
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.year; }))
       .range([ 0,Chartwidth ]);
-
-
-    const yScale = d3.scaleLinear()
-      .range([Chartheight, 0])
-      .domain([(0), d3.max(rate, function(c) {
-        return d3.max(c.values, function(d) {
-            return d.measurement ; });
-            })
-        ]);
-
-    
-    const yaxis = d3.axisLeft(yScale); 
     const xaxis = d3.axisBottom(xScale);
 
     Ratesvg.append("g")
@@ -56,50 +44,42 @@ d3.csv("Data/continent_Pct_change.csv").then(
     .attr("transform", "translate(0," + Chartheight + ")")
     .call(xaxis.ticks(5));
 
+    // set up the y axis
+    const yScale = d3.scaleLinear()
+      .range([Chartheight, 0])
+      .domain([(0), d3.max(rate, function(c) {
+        return d3.max(c.values, function(d) {
+            return d.measurement ; });
+            })
+        ]);
+    const yaxis = d3.axisLeft(yScale); 
     Ratesvg.append("g")
     .attr("class", "axis")
     .call(yaxis);
 
-
-
-    //----------------------------LINES-----------------------------//
+    //----------------------------draw the lines-----------------------------//
     const line = d3.line()
     .x(function(d) { return xScale(d.date); })
     .y(function(d) { return yScale(d.measurement);}); 
 
-
+    // set an id to each line, easy for styling after 
     let id = 0;
     const ids = function () {
         return "Rateline-"+id++
     }
 
-    //----------------------------LINES-----------------------------//
-  
     const lines = Ratesvg.selectAll("lines")
     .data(rate)
     .enter()
     .append("g");
 
-    /*lines.append("text")
-    .attr("class","label")
-    .datum(function(d) {
-        return {
-            id: d.id,
-            value: d.values[d.values.length - 1]}; })
-    .attr("transform", function(d) {
-            return "translate(" + (xScale(d.value.date))  
-            + "," + (yScale(d.value.measurement) +5) + ")";})
-    .attr("x",-20)
-    .attr('text-anchor', 'middle')
-    .text(function(d) {return ("")+d.id; })*/
-
-    var legend_keys = 
+   //----------------------------Legend-----------------------------//
+    let legend_keys = 
     ['East Asia & Pacific', 'Europe & Central Asia', 
     'Latin America & Caribbean', 'Middle East & North Africa', 
     'North America', 'South Asia', 'Sub-Saharan Africa']
 
-    
-    var lineLegend = Ratesvg
+    let lineLegend = Ratesvg
         .selectAll(".lineLegend")
         .data(legend_keys)
         .enter().append("g")
@@ -120,6 +100,7 @@ d3.csv("Data/continent_Pct_change.csv").then(
       })
       .attr("width", 12).attr('height', 5);
 
+    //----------------------------draw the graph-----------------------------//
     lines.append("path")
       .attr("class", ids)
       .attr("fill", "none")
@@ -127,6 +108,7 @@ d3.csv("Data/continent_Pct_change.csv").then(
       .attr("stroke-width", 2)
       .attr("d", function(d) { return line(d.values); });
 
+   //----------------------------title of graph----------------------------//
       Ratesvg.append("text")
       .attr("x", (Chartwidth / 2))             
       .attr("y", 0 - (margin.top / 2))
